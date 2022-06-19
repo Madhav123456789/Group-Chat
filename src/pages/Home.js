@@ -23,7 +23,7 @@ function Home() {
     };
 
     return (
-        <form className='w-[100vw] h-[100vh] flex items-center justify-center bg-blue-200'>
+        <form className='home w-[100vw] h-[100vh] flex items-center justify-center bg-blue-200'>
             <div className='w-80 sm:w-96 rounded-md bg-blue-500 flex h-72 flex-col p-5 items-center justify-center'>
                 <p className='font-semibold text-lg text-center mb-3'>Welcome to Chat Group</p>
                 <input value={name} onChange={onNameChange} className='w-52 rounded-md h-8 outline-none px-3' type="text" placeholder='Enter name here' />

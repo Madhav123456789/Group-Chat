@@ -1,39 +1,36 @@
 import React, { useEffect, useRef } from 'react'
 import style from "./style.module.css";
 
-function AutoScroll({ children, getFunction }) {
+function AutoScroll({ children, run=true }) {
     const ref = useRef();
 
     // for checking is overflow activated or not
-    function check() {
-        var curOverf = ref.current.style.overflow;
+    // function check() {
+    //     var curOverf = ref.current.style.overflow;
 
-        if (!curOverf || curOverf === "visible")
-            ref.current.style.overflow = "hidden";
+    //     if (!curOverf || curOverf === "visible")
+    //         ref.current.style.overflow = "hidden";
 
-        var isOverflowing = ref.currentclientHeight < ref.current.scrollHeight;
+    //     var isOverflowing = ref.currentclientHeight < ref.current.scrollHeight;
 
-        ref.current.style.overflow = curOverf;
+    //     ref.current.style.overflow = curOverf;
 
-        return isOverflowing;
-    };
+    //     return isOverflowing;
+    // };
 
     //with smooth-scroll
     const scrollToBottomWithSmoothScroll = () => {
-        if (check()) {
+        
             ref.current.scrollTo({
                 top: ref.current.scrollHeight,
                 behavior: 'smooth',
             });
-        }
+        
     };
 
     useEffect(() => {
         scrollToBottomWithSmoothScroll();
-        getFunction({
-            func: scrollToBottomWithSmoothScroll
-        })
-    }, []);
+    }, [run]);
 
 
 
