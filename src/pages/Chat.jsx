@@ -29,7 +29,7 @@ function Chat() {
   useEffect(() => {
     myid = String(Math.random()) * String(100 + Date.now());
     // connecting
-    socket = socketio("http://localhost:8000", { transports: ["websocket"] });
+    socket = socketio("https://my-group-chat-backend.herokuapp.com/", { transports: ["websocket"] });
     // listening
     socket.on('connect', () => {
       // toast.success("You connected to the group chat");
@@ -46,13 +46,11 @@ function Chat() {
     });
 
     socket.on("leaved-user", (data) => {
-      toast.success(data.msg);
+      toast.error(data.msg);
     });
     // unmounting
     return () => {
-      socket.emit("discon", (data) => {
-        toast.success(data.msg);
-      });
+      socket.emit("discon");
 
       socket.off();
     }
@@ -60,19 +58,14 @@ function Chat() {
 
   useEffect(() => {
     socket.on("receive-msg", (data) => {
-      var audio = new Audio('/sound.mp3').play();
+      if(data.id !== myid){
+        var audio = new Audio('/sound.mp3').play();
+      };
+
       setMessages([...messages, data]);
       console.log(messages);
       setRun(!run);
     });
-
-    return () => {
-      socket.emit("discon", (data) => {
-        toast.success(data.msg);
-      });
-
-      socket.off();
-    }
   }, [messages]);
 
   useEffect(() => {
