@@ -66,6 +66,10 @@ function Chat() {
       console.log(messages);
       setRun(!run);
     });
+
+    return ()=>{
+      socket.off();
+    }
   }, [messages]);
 
   useEffect(() => {
